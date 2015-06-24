@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title #{bwt.get('title')} - My Site
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    header
+      h1 My Site
+    .container
+      .main-content
+        !=bwt.render('index')
+      .sidebar
+        !=bwt.render('sidebar')
+    footer
+      p Running on node with Express, Jade and Stylus
