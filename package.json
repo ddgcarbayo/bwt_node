@@ -4,9 +4,18 @@
   "private": "true",
   "main": "app.js",
   "dependencies": {
-    "express": "3.0.0alpha4",
-    "nib": "^1.0.4",
-    "stylus": "^0.49.1",
-    "jade": "^1.7.0"
+    "jade": "latest",
+    "then-jade" : "*",
+    "lodash" : "latest",
+    "express": "4.9.8",
+    "body-parser": "1.5.2",
+    "method-override": "1.0.2",
+    "cookie-parser": "1.0.1",
+    "express-session": "1.0.4",
+    "compression": "1.0.11",
+    "composable-middleware": "0.3.0",
+    "q" : "1.1.2",
+    "request" : "2.55.0",
+    "connect-multiparty" : "1.2.5"
   }
 }
