@@ -1,19 +1,17 @@
-var BWT = require('./BWT');
+var BWT = require(__dirname+'/BWT');
+var app, cms, api;
 
-BWT.Router.get('/api/feo',function(BWT){
-    console.log('Feo');
-    BWT.res.status(200).send('Feo : '+BWT.req.url);
+app = new BWT();
+//app.Router.add(__dirname+'/routes');
+app.start(function(info){
+  console.log(info);
+  console.log('qvy');
 });
 
-BWT.Router.get('/api/tonto',function(BWT){
-    console.log('Tonto 1');
-    setTimeout(function(){
-        console.log('Tonto 2');
-        console.log(BWT.req.url);
-        BWT.res.status(200).send('Tonto : '+BWT.req.url);
-    },5000);
-});
-
-BWT.Server.listen(function(){
-    console.log('cb');
-});
+/**
+ * CMS que se podrá lanzar en otro puerto
+ * App. en AngularJS para la gestión de los contenidos
+ *
+ */
+//cms = new BWT().cms();
+//cms.start();
