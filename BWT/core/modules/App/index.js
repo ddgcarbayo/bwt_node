@@ -1,4 +1,7 @@
-module.exports = function(BWT){
+module.exports = function(){
+    return function(BWT,Server){
+
+    };
     var express = require('express');
     var App = express();
     App.launcher = function(){

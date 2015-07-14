@@ -1,7 +1,12 @@
 module.exports = function(){
   return function(Config){
     var BWT=this;
-    var time = new Date().getTime();
+    var App,Server,Router,Utils,View;
+
+    var init = function(){
+      if(App) return;
+      App = new BWT.load('App')(BWT,Server);
+    };
     /**
      * Module loader
      * @param module
@@ -19,16 +24,28 @@ module.exports = function(){
      * @type {*|The}
      */
     BWT.Config = Config || BWT.load('index','config');
+    BWT.Router = function(){
+      init();
+      return Router;
+    };
+
+    BWT.Server = function(){
+      init();
+      return Server;
+    };
+
+    // la view se pasará en el objeto a las responses
+
+    BWT.Utils = function(){
+      return Utils;
+    };
 
     /**
      * Start an app with a Config
      */
     BWT.start = function(cb){
-      console.log(BWT.Config);
-      cb({
-        port : 8080,
-        time : time
-      });
+      init();
+      cb();
     };
   };
 };
