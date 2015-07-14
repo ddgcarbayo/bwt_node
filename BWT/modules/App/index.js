@@ -11,11 +11,5 @@ module.exports = function(BWT){
         }
         App.use(express.static(BWT.Config.server.static));
     };
-    App.route = {
-        get : function(){
-            App.get(arguments[0],)
-            console.log(arguments);
-        }
-    };
     return App;
 };

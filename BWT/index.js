@@ -6,10 +6,10 @@ module.exports = (function(){
     };
     BWT.Config = BWT.load('index','config');
     BWT.App  = BWT.load('App');
-    BWT.View = BWT.load('View');
+    //BWT.View = BWT.load('View'),
     //Model : load('Model'),
     BWT.Utils = BWT.load('Utils');
     BWT.Server = BWT.load('Server');
-
+    BWT.Router  = BWT.load('Router');
     return BWT;
 })();
