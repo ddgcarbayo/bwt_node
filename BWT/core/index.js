@@ -38,7 +38,7 @@ module.exports = function(){
     };
 
     BWT.use = function(fn) {
-      App.use(fn);
+      Router.middleware(fn);
     };
 
     BWT.App = function () {
