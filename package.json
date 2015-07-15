@@ -16,6 +16,7 @@
     "composable-middleware": "0.3.0",
     "q" : "1.1.2",
     "request" : "2.55.0",
-    "connect-multiparty" : "1.2.5"
+    "connect-multiparty" : "1.2.5",
+    "jade-async" : "latest"
   }
 }

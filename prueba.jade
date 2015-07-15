@@ -3,5 +3,7 @@ html
     head
         title Hello
     body
-        h1 Hello world! #{Tonto}
-                      
+        h1= Model.get()
+        ul
+          each item in Model.list({ feo : true })
+            li= item

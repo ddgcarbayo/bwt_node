@@ -1,6 +1,6 @@
 var _ = require('lodash');
 var fs = require('fs');
-var jade = require('then-jade');
+var jade = require('jade-async');
 var q = require('q');
 
 module.exports = function(){

@@ -3,34 +3,36 @@ module.exports = function(){
         var View = this;
         View.render = function(template,vars){
             var jade = BWT.Utils().jade();
-            var fs = BWT.Utils().fs();
             var q = BWT.Utils().q();
-            var promises = [];
-            BWT.tonto = function(){
-                var p = q.promise(function(ok,ko){
+            BWT.tonto = function(arr){
+                return q.promise(function(ok,ko){
                     setTimeout(function(){
-                        p.resultado = 'Resultado';
-                        ok();
+                       return ko();
+                        if(!arr) ok('REsultado');
+                        else ok(['feo','tonto']);
                     },1000);
                 });
-                promises.push(p);
-                return p;
             };
-            var fn = jade.compileStreaming(fs.readFileSync(template,'utf8'));
-            var str=fn({Tonto : BWT.tonto()});
-            str.setEncoding('utf8');
-            var res='';
-            str.on('data',function(data){
-               res+=data;
-            });
+          var tpl = jade.compileFile(template);
+          var data = {
+            Model : {
+              get : function(){
+                return BWT.tonto()
+              },
+              list : function(filters){
+                console.log(filters);
+                return BWT.tonto(true);
+              }
+            }
+          };
 
-            str.on('end',function(){
-               console.log(res);
-            });
+          tpl(data).done(function (html) {
+            BWT.res.status(200).send(html);
+          },function(){
+            console.log('error');
+            BWT.res.status(200).send('Error');
+          });
 
-            //jade.renderFile(template, { BWT : BWT }, function(error,result){
-            //   BWT.res.status(200).send(result);
-            //});
         };
     };
 };
