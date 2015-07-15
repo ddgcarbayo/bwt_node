@@ -1,12 +1,8 @@
 module.exports = function(){
-  return function(Config){
+  return function(customConfig){
     var BWT=this;
-    var App,Server,Router,Utils,View;
-
-    var init = function(){
-      if(App) return;
-      App = new BWT.load('App')(BWT,Server);
-    };
+    BWT.Id = new Date().getTime();
+    var App,Server,Router,Utils,View,Config;
     /**
      * Module loader
      * @param module
@@ -16,21 +12,22 @@ module.exports = function(){
 
     BWT.load = function(module,folder){
       if(!folder) folder = 'modules';
-      return require(__dirname+'/'+folder+'/'+module)(BWT);
+      return (require(__dirname+'/'+folder+'/'+module)(BWT));
     };
 
     /**
      * The Config of the app
      * @type {*|The}
      */
-    BWT.Config = Config || BWT.load('index','config');
+    BWT.Config = function(){
+      return Config;
+    };
+
     BWT.Router = function(){
-      init();
       return Router;
     };
 
     BWT.Server = function(){
-      init();
       return Server;
     };
 
@@ -40,12 +37,25 @@ module.exports = function(){
       return Utils;
     };
 
+    BWT.use = function(fn) {
+      App.use(fn);
+    };
+
+    BWT.App = function () {
+      return App;
+    };
+
     /**
      * Start an app with a Config
      */
-    BWT.start = function(cb){
-      init();
-      cb();
+    BWT.start = function (cb) {
+      App.start(cb);
     };
+
+    Utils = BWT.load('Utils');
+    Config = BWT.Utils()._.merge(BWT.load('index','config'),customConfig || {});
+
+    App = new BWT.load('App')();
+    Router = new (BWT.load('Router'))(App);
   };
 };

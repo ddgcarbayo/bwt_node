@@ -1,1 +1,1 @@
-module.exports = new require(__dirname+'/core')();
+module.exports = require(__dirname+'/core')();
