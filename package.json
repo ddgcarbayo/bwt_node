@@ -5,7 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "jade": "latest",
-    "then-jade" : "*",
+    "then-jade" : "2.4.1",
     "lodash" : "latest",
     "express": "4.9.8",
     "body-parser": "1.5.2",
