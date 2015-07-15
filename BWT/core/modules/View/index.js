@@ -4,10 +4,10 @@ module.exports = function(){
         View.render = function(template,vars){
             var jade = BWT.Utils().jade();
             var q = BWT.Utils().q();
-            BWT.tonto = function(arr){
+            BWT.tonto = function(arr,vif){
                 return q.promise(function(ok,ko){
                     setTimeout(function(){
-                       return ko();
+                       if(vif) return ok('true');
                         if(!arr) ok('REsultado');
                         else ok(['feo','tonto']);
                     },1000);
@@ -22,6 +22,9 @@ module.exports = function(){
               list : function(filters){
                 console.log(filters);
                 return BWT.tonto(true);
+              },
+              vif : function(){
+                return BWT.tonto(false,true);
               }
             }
           };

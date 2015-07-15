@@ -7,3 +7,5 @@ html
         ul
           each item in Model.list({ feo : true })
             li= item
+        if Model.vif() != 'true'
+          h1 Eres mu tonto #{Model.vif()}
