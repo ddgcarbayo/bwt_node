@@ -1,40 +1,57 @@
 module.exports = function(){
     return function(BWT){
         var View = this;
+        var extendVars = function(customVars){
+            var q = BWT.Utils().q();
+            var betaView = {
+                ModelSQL : {
+                    get : function(params) {
+                        //devolver promesa
+                        //params = {
+                        //    filters : [
+                        //        {
+                        //            field : 'columnaX',
+                        //            value : 'XXX',
+                        //            filter : 'LIKE, =, ...'
+                        //        }
+                        //    ],
+                        //    filterType : 'AND',
+                        //    order : {
+                        //        fieldName : 'ASC',
+                        //        fieldName2 : 'DESC'
+                        //    },
+                        //    limit : 1, // SIEMPRE devuelve un elemento, por eso es un get
+                        //    offset : 5
+                        //};
+                    },
+                    list : function(params){
+                        //igual que el get pero el param limit funciona.
+                        // SIEMPRE Devuelve un array
+                    }
+                },
+                View : {
+                    import : function(template){
+                        // importará templates de forma dinámica (en jade no se puede directamente, hay que indicar la ruta para que vaya)
+                    }
+                }
+            };
+
+            return BWT.Utils()._().merge(betaView,customVars);
+        };
+
+        /**
+         * Render a template file
+         * @param template
+         * @param {vars} Vars for the template (can be a promise)
+         */
         View.render = function(template,vars){
             var jade = BWT.Utils().jade();
-            var q = BWT.Utils().q();
-            BWT.tonto = function(arr,vif){
-                return q.promise(function(ok,ko){
-                    setTimeout(function(){
-                       if(vif) return ok('true');
-                        if(!arr) ok('REsultado');
-                        else ok(['feo','tonto']);
-                    },1000);
-                });
-            };
-          var tpl = jade.compileFile(template);
-          var data = {
-            Model : {
-              get : function(){
-                return BWT.tonto()
-              },
-              list : function(filters){
-                console.log(filters);
-                return BWT.tonto(true);
-              },
-              vif : function(){
-                return BWT.tonto(false,true);
-              }
-            }
-          };
-
-          tpl(data).done(function (html) {
-            BWT.res.status(200).send(html);
-          },function(){
-            console.log('error');
-            BWT.res.status(200).send('Error');
-          });
+            jade.compileFile(template)(extendVars(vars)).done(function (html) {
+                BWT.res.status(200).send(html);
+            },function(){
+                console.log('Error compiling Jade file '+template);
+                BWT.res.status(200).send('Error');
+            });
 
         };
     };
